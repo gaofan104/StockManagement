@@ -1,0 +1,12 @@
+{% extends "stockManagement/html/base.html" %}
+
+{% block content %}
+
+<div ng-app="stockManagement" >
+    <div ng-init="user.is_staff='{{request.user.is_staff}}'"></div>
+    <ng-view>
+
+    </ng-view>
+</div>
+
+{% endblock %}

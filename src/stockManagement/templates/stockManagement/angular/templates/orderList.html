@@ -1,0 +1,64 @@
+<h1 style="text-align:center"> 我的购物车 <i class="fa fa-shopping-cart" aria-hidden="true"></i> </h1>
+<table id="orderListTable" datatable="ng" dt-instance="order_table" dt-options="dtOptions" class="row-border hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th ng-show="{{user.is_staff | lowercase}}">
+            <checkbox normal type="checkbox" ng-model="select.all" ng-change="toggleAll()"></checkbox>
+            <!--<input type="checkbox" ng-model="select.all" ng-click="toggleAll()">-->
+        </th>
+        <th>Status</th>
+        <th>Item</th>
+        <th>Buyer</th>
+        <th>Quantity</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Updated</th>
+        <th>Deliveryman</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="order in orders | orderBy:'-updated' ">
+        <td>{{ order.id }}</td>
+        <td ng-show="{{user.is_staff | lowercase}}">
+            <!--<input type="checkbox" ng-model="selected[order.id]" ng-init="selected[order.id] = false">-->
+            <checkbox normal type="checkbox" ng-model="selected[order.id]" ng-init="selected[order.id] = false"></checkbox>
+        </td>
+        <td>
+            {{ order.status }}
+        </td>
+        <td>{{ order.item_details.name }}
+        <img height="20px;"ng-src = {{order.item_details.image}}>
+        </td>
+        <td>{{ order.buyer_details.username }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.phone }}</td>
+        <td>{{ order.address }}</td>
+        <td am-time-ago="order.updated">{{ order.updated |amCalendar}}</td>
+        <td>
+            <select ng-model="order.deliveryman"
+                    ng-options="user.id as user.username for user in users">
+            </select>
+        </td>
+        <td>
+            <button type="button" class="btn btn-warning" ng-disabled="order.status=='配送中'" ng-click="open(order.item_details, order)">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i>
+            </button>
+            <button type="button" class="btn btn-danger" ng-disabled="order.status=='配送中'" ng-click="delete(order.item_details, order)">
+                <i class="fa fa-minus-square" aria-hidden="true"></i> Delete
+            </button>
+        </td>
+    </tr>
+</table>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+<p ng-if="server_msg">{{server_msg}}</p>
+<button class="btn btn-success pull-right" ng-show="{{user.is_staff | lowercase}}" ng-click="deal()">
+    <i class="fa fa-gavel" aria-hidden="true"></i> 成交
+</button>
+<button class="btn btn-primary pull-right" ng-show="{{user.is_staff | lowercase}}" ng-click="deliver()">
+    <i class="fa fa-truck" aria-hidden="true"></i> 配送
+</button>
+
+<iframe width="100%" id="errorIFrame"> </iframe>

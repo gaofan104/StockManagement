@@ -1,0 +1,54 @@
+
+<h3 style="text-align:center"><b style="font-size:30px">本周最佳</b>  </h3>
+<uib-carousel style="height: 340px; background-image: url( '/static/img/wood.jpg' );" active="active" interval="myInterval" no-wrap="noWrapSlides">
+
+    <uib-slide ng-repeat="slide in slides track by $index" index="$index" style="margin-top:15px;">
+    <img ng-src="{{slide.image}}" style="margin:auto; height:240px;">
+    <div class="carousel-caption">
+      <h4 style="color:black; font-size:30px;"><b>{{slide.text}}</b></h4>
+      <p style="color:black;">{{slide.text}}</p>
+    </div>
+  </uib-slide>
+</uib-carousel>
+
+
+<div class="row" style="font-size:40px; margin:20px; text-align:center"> 产品列表 </div>
+
+
+<div class="my-controller row" style="margin:auto;">
+
+    <div dir-paginate="item in items | filter:q | itemsPerPage: 6" current-page="currentPage" class="col-sm-2 col-lg-2 col-md-2">
+        <div class="thumbnail" >
+            <p></p>
+            <img style="height:250px;" class="static-image" ng-if="item.image != '/media/null'" ng-src={{item.image}}>
+            <img class="static-image" ng-if="item.image == '/media/null'" ng-src="http://placehold.it/350x300">
+            <div class="caption">
+                <h4 class="pull-right">${{ item.price }}</h4>
+                <h4><a style="cursor: pointer" ng-click="open(item)">{{ item.name }}</a>
+                </h4>
+                <a style="cursor: pointer" ng-click="open(item)">  <i class="fa fa-cart-plus" aria-hidden="true"></i> 购买</a>
+                <a style="cursor: pointer" class="pull-right">  <i class="fa fa-thumbs-up" aria-hidden="true"></i> 点赞</a>
+            </div>
+            <div class="ratings">
+                <p class="pull-right">15 reviews</p>
+                <p>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div >
+    <div class="text-center">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" >
+
+        </dir-pagination-controls>
+    </div>
+</div>
+
+<!--<iframe width="100%" id="errorIFrame"> </iframe>-->

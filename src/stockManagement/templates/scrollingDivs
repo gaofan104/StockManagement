@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+	<title>图片水平循环滚动</title>
+    <script type='text/javascript' src="{% static 'js/jquery.min.js' %}"></script>
+	<script type='text/javascript' src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript">
+	//定时器间隔
+	var interval=30;
+
+	$(document).ready(
+		function(){
+		//用左侧的内容填充右侧
+		$("#right").html($("#left").html());
+		//设置外部容器的宽度，防止IE下div换行
+		<!--$("#content").outerWidth($("#left").outerWidth());-->
+		//启动定时器，定时执行leftloop函数
+		timename = setInterval("leftloop(1)",interval);
+
+		// $("#content").hover(function(){
+
+		//    window.clearInterval(timename);
+	 //       timename = null;
+		// // timename=setInterval("leftloop(1)",interval);
+		// });
+
+		$("#content").mouseout(function() {
+		   if(timename == null) {
+			timename = setInterval("leftloop(1)",interval);
+		   }
+		});
+		$("#content").mouseover(function() {
+		   window.clearInterval(timename);
+		   timename = null;
+	   });
+
+		$("#left-arrow").mouseover(function() {
+			window.clearInterval(timename);
+			timename = setInterval("leftloop(-10)",interval);
+		});
+		$("#right-arrow").mouseover(function() {
+			window.clearInterval(timename);
+			timename = setInterval("leftloop(10)",interval);
+	   });
+		$("#left-arrow").mouseout(function() {
+			window.clearInterval(timename);
+			timename = setInterval("leftloop(1)",interval);
+		});
+		$("#right-arrow").mouseout(function() {
+			window.clearInterval(timename);
+			timename = setInterval("leftloop(1)",interval);
+
+	   });
+
+	});
+	function leftloop(speed){
+	//判断是否左侧内容全部进入滚动条
+		console.log($("#left").outerWidth());
+		console.log($("#content").scrollLeft());
+	if($("#left").outerWidth()-$("#content").scrollLeft()<=20){
+
+		  var left=$("#content").scrollLeft()-$("#left").outerWidth();
+		  $("#content").scrollLeft(left);
+	}else{
+		  var left=$("#content").scrollLeft()+speed;
+		  $("#content").scrollLeft(left);
+	}
+	$("#foot").html("scrollLeft:"+$("#content").scrollLeft());
+	}
+	</script>
+	<style type="text/css">
+	#title{height:50px;}
+	#content{overflow:hidden;white-space:nowrap;border:10px solid #cccccc;}
+	.fordisplay{margin:0;display:inline-block;zoom:1}/*所有浏览器*/
+	.fordisplay{display:inline\9;}IE8以及以下版本浏览器
+	.fordisplay ul{margin:0;padding:0;display:inline;font-size:0;}
+
+	/*伟大的google也不是每件事都做的好*/
+	@media screen and (-webkit-min-device-pixel-ratio:0)
+	{
+		.fordisplay ul{
+		letter-spacing:-6px;
+	  }
+	}
+	.fordisplay div{display:inline;letter-spacing:0}
+
+	</style>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<div>
+	<div class="row">
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+			<div id="title">图片水平循环滚动</div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="left-arrow" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" style=" vertical-align:middle;">
+			<img src="/static/img/double-left-arrow.png" width="100%;" class="fordisplay"/>
+		</div>
+		<div id="content" class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+			<div id="content_body">
+				<div id="left" class="fordisplay">
+					<div class="row">
+						<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<img class= "img-thumbnail" width="500" height="236" src="/static/img/zhonghua.png"/>
+						</div>
+						<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<img class= "img-thumbnail" width="500" height="236" src="/static/img/mvp_landing_logo.png"/>
+						</div>
+						<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<img class= "img-thumbnail" width="500" height="236" src="/static/img/marketing1.jpg"/>
+						</div>
+						<div  class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+							<img class= "img-thumbnail" width="500" height="236" src="/static/img/beach-02.jpg"/>
+						</div>
+					</div>
+				</div>
+				<div id="right" class="fordisplay"></div>
+			</div>
+		</div>
+		<div id="right-arrow" class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"  style="vertical-align:middle">
+			<img src="/static/img/double-right-arrow.png" width="100%;" class="fordisplay"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+			<div id="foot"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

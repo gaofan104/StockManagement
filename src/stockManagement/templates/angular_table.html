@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en"  ng-app="myModule">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- data table required-->
+    <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.min.css">
+
+    <script type='text/javascript' src="{% static 'js/jquery.min.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/angular.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script type='text/javascript' src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script type='text/javascript' src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://rawgithub.com/l-lin/angular-datatables/dev/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+
+    <!-- angular data table required js-->
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.options.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.factory.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.renderer.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.util.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.instances.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.directive.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/dataTables/src/angular-datatables.js' %}"></script>
+
+
+    <!--angular module-->
+    <script src="{% static 'js/stockManagement.js' %}"></script>
+</head>
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+
+
+</script>
+
+    <script type="text/javascript">
+
+    //Chrome passes the error object (5th param) which we must use since it now truncates the Msg (1st param).
+    window.onerror = function (errorMsg, url, lineNumber, columnNumber, errorObject) {
+        var errMsg;
+        //check the errorObject as IE and FF don't pass it through (yet)
+        if (errorObject && errorObject !== undefined) {
+                errMsg = errorObject.message;
+            }
+            else {
+                errMsg = errorMsg;
+            }
+        alert('Error: ' + errMsg);
+    }
+
+    var throwError = function () {
+        throw new Error(
+        'Something went wrong. Something went wrong. Something went wrong. Something went wrong. ' +
+        'Something went wrong. Something went wrong. Something went wrong. Something went wrong. ' +
+        'Something went wrong. Something went wrong. Something went wrong. Something went wrong. ' +
+        'Text does not get truncated! :-)');
+    }
+
+    </script>
+<body ng-controller="boostrapCtrl">
+    <div class = "container-fluid">
+        <div class= "row">
+            <table  datatable=""  dt-options="dtOptions" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Foo</td>
+                    <td>Bar</td>
+                </tr>
+                <tr>
+                    <td>123</td>
+                    <td>Someone</td>
+                    <td>Youknow</td>
+                </tr>
+                <tr>
+                    <td>987</td>
+                    <td>Iamout</td>
+                    <td>Ofinspiration</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "row">
+            <div class="col-md-6 col-xs-6">
+                <p>Hello World asdfasdfasdfwefazxca sefdwacdzdfaewfczxsd gegrcavregsdadgvr</p>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <input type="button" onclick="throwError()" value="Throw uncaught error!" /><br /><br />
+            </div>
+        </div>
+    </div>
+</body>
+
+    <script type='text/javascript' src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script type='text/javascript' src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+</html>

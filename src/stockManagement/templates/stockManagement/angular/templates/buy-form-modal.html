@@ -1,0 +1,29 @@
+<!-- verbatim makes django not rendering angular parameters-->
+{% verbatim %}
+<div class="modal-header">
+  <h3 class="modal-title">{{ item1.name }}</h3>
+
+</div>
+<div class="modal-body">
+    <img class="static-image" ng-if="item1.image != '/media/null'" ng-src={{item1.image}} style="height:300px;">
+    <img class="static-image" ng-if="item1.image == '/media/null'" ng-src="http://placehold.it/350x300">
+{% endverbatim %}
+
+    <form name="order_form">
+        {% csrf_token %}
+        {{ order_form.id }}
+        {{ order_form.as_div }}
+        {{ order_form.updated }}
+        <!--<iframe width="100%" id="errorIFrame"> </iframe>-->
+
+    </form>
+{% verbatim %}
+
+    <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-disabled="order_form.$invalid" type="button" ng-click="ok()">Submit Order</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
+{% endverbatim %}

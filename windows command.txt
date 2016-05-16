@@ -1,0 +1,7 @@
+---activate virtual env
+.\Scripts\activate (inside the virtual env folder eg Desktop\tryDjango18
+
+
+---database command
+python manage.py makemigrations
+python manage.py migrate

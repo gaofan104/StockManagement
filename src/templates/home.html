@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+<!-- Main component for a primary marketing message or call to action -->
+{% block title %}
+	Welcome
+{% endblock %}
+
+<style>
+{% block style %}
+.text_align_center {
+	text-align: center;
+}
+.jumbotron{
+	background-color: #723C3C;
+}
+{% endblock %}
+</style>
+
+{% block jumbotron %}
+
+{% if not request.user.is_authenticated %}
+<div class="jumbotron">
+	<div class="container">
+		<div class = "row">
+			<div class = "col-sm-6">
+				<h1>Navbar example</h1>
+				<p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+				<p>
+			 		 <a class="btn btn-lg btn-primary" href="" role="button">Join Us &raquo;</a>
+				</p>
+			</div>
+			<div class = 'col-sm-6'>
+				<iframe width="540" height="315" src="https://www.youtube.com/embed/4OlGpS2LG_M" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<h1>You are logged in !</h1>
+
+{% if queryset %}
+<h2>Welcome staff</h2>
+	<table class='table'>
+	{% for instance in queryset %}
+		<tr><td>{{ forloop.counter }}</td>
+			<td>{{ instance.email }}</td>
+			<td>{{ instance.full_name }}</td>
+			<td>{{ instance.timestamp|timesince }} ago</td>	
+	{% endfor %}
+	</table>
+{% endif %}
+
+{% else %}
+<div class = "row">
+	<div class = "col-sm-3 pull-right">
+		<h1 class = "text_align_center">{{ title }}</h1>
+		<form method='POST' action=''>{% csrf_token %}
+			{{ form|crispy }}
+			<input class='btn btn-primary' type='submit' value='Sign Up'>
+		</form>
+	</div>
+
+
+	<div class = "col-sm-3">
+		<p class = "text_align_center">Built with Django &amp; Bootstrap</p>
+		<img src='{% static "img/marketing1.jpg" %}' class='img-responsive'>
+	</div>
+
+	<div class = "col-sm-3">
+		<p class = "text_align_center">Built with Django &amp; Bootstrap
+			<br/><br/><br/>
+			<span class='fa-stack fa-lg fa-5x'>
+			<i class="fa fa-comment-o fa-stack-2x"></i>
+			<i style='color:red;' class="fa fa-bolt fa-stack-1x"></i>
+			</span>
+		</p>
+	</div>
+
+	<div class = "col-sm-3">
+		<p class = "text_align_center">Built with Django &amp; Bootstrap
+			<br/><br/><br/>
+			<span class='fa-stack fa-lg fa-5x'>
+			<i class="fa fa-spinner fa-stack-2x"></i>
+			<i class='fa fa-github fa-stack-1x'></i>
+			</span>
+		</p>
+
+	</div>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ item.name }}</h3>
+</div>
+<div class="modal-body">
+
+    <img class="static-image" ng-if="item.image != '/media/null'" ng-src={{item.image}} style="height:300px;">
+    <img class="static-image" ng-if="item.image == '/media/null'" ng-src="http://placehold.it/350x300">
+
+    <form ng-controller="OrderFormCtrl" name="order_form">
+        {{ order_form }}
+        <button ng-click="submit()">Submit</button>
+    </form>
+    Selected: <p>{{ item }}</p>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="ok()">Submit Order</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
